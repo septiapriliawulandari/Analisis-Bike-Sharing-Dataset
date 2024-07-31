@@ -4,8 +4,8 @@ import seaborn as sns
 import streamlit as st
 
 # Load data
-day_data = pd.read_csv('data/day.csv')
-hour_data = pd.read_csv('data/hour.csv')
+day_data = pd.read_csv('dashboard/data/day.csv')
+hour_data = pd.read_csv('dashboard/data/hour.csv')
 
 # Dokumentasi
 st.title('Proyek Analisis Data: Analisis Bike Sharing Dataset')
