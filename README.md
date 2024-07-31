@@ -12,10 +12,11 @@ Pastikan Anda telah menginstal:
 
 ## Langkah-Langkah Menjalankan Proyek
 
-### Menginstal Dependensi
 
-Instal semua dependensi yang dibutuhkan untuk proyek:
 ```bash
+## Menginstal Dependensi
+
+### Instal semua dependensi yang dibutuhkan untuk proyek:
 pip install -r requirements.txt
 
 ## Menjalankan Aplikasi
