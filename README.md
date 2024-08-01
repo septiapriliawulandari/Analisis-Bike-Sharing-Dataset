@@ -8,7 +8,7 @@ Pastikan Anda telah menginstal:
 
 - Python 3.7 atau versi lebih baru
 - pip (Python package manager)
-- virtualenv (opsional, tetapi disarankan untuk mengisolasi lingkungan proyek)
+
 
 ## Langkah-Langkah Menjalankan Proyek
 

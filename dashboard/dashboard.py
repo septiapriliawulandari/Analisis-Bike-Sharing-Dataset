@@ -1,11 +1,12 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
 # Load data
-day_data = pd.read_csv('dashboard/data/day.csv')
-hour_data = pd.read_csv('dashboard/data/hour.csv')
+day_data = pd.read_csv('data/day.csv')
+hour_data = pd.read_csv('data/hour.csv')
 
 # Dokumentasi
 st.title('Proyek Analisis Data: Analisis Bike Sharing Dataset')
@@ -33,7 +34,7 @@ st.pyplot(plt)
 st.header('Jam-Jam Sibuk untuk Penyewaan Sepeda')
 hour_grouped = hour_data.groupby('hr').agg({'cnt': 'mean'}).reset_index()
 plt.figure(figsize=(12, 6))
-sns.lineplot(x='hr', y='cnt', data=hour_grouped, marker='o')
+sns.barplot(x='hr', y='cnt', data=hour_grouped, palette='Blues_d')
 plt.title('Rata-Rata Jumlah Penyewaan Sepeda Berdasarkan Jam')
 plt.xlabel('Jam dalam Sehari')
 plt.ylabel('Rata-Rata Jumlah Penyewaan')
