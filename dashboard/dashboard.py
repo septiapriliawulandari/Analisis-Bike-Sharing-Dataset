@@ -40,6 +40,27 @@ plt.xlabel('Jam dalam Sehari')
 plt.ylabel('Rata-Rata Jumlah Penyewaan')
 st.pyplot(plt)
 
+# Pertanyaan Bisnis 3: Bagaimana Segmen Waktu Penyewaan Sepeda Berdasarkan RFM Analysis?
+st.header('Segmen Waktu Penyewaan Sepeda Berdasarkan RFM Analysis')
+day_data['dteday'] = pd.to_datetime(day_data['dteday'])
+day_data['days_since_last'] = (day_data['dteday'].max() - pd.to_datetime(day_data['dteday'])).dt.days
+rfm = day_data.groupby('days_since_last').agg({
+    'days_since_last': 'min',  
+    'instant': 'count',        
+    'cnt': 'sum'               
+}).rename(columns={
+    'days_since_last': 'Recency',
+    'instant': 'Frequency',
+    'cnt': 'Monetary'
+}).reset_index(drop=True)
+rfm['R_Score'] = pd.qcut(rfm['Recency'], 4, labels=[4, 3, 2, 1])
+rfm['F_Score'] = pd.qcut(rfm['Frequency'].rank(method='first'), 4, labels=[1, 2, 3, 4])
+rfm['M_Score'] = pd.qcut(rfm['Monetary'], 4, labels=[1, 2, 3, 4])
+rfm['RFM_Segment'] = rfm['R_Score'].astype(str) + rfm['F_Score'].astype(str) + rfm['M_Score'].astype(str)
+rfm['RFM_Score'] = rfm[['R_Score', 'F_Score', 'M_Score']].sum(axis=1)
+st.write('Tabel Hasil RFM Analysis:')
+st.dataframe(rfm.head())
+
 # Mengidentifikasi anomali dalam penyewaan sepeda
 st.header('Identifikasi Anomali dalam Penyewaan Sepeda')
 plt.figure(figsize=(12, 6))
@@ -90,4 +111,10 @@ st.subheader('Kesimpulan Pertanyaan 2')
 st.write("""
 Dari analisis waktu dalam sehari, terlihat bahwa **jam sibuk** penyewaan sepeda terjadi pada pagi hari sekitar jam 8 dan sore hari sekitar jam 17, 
 yang kemungkinan besar terkait dengan waktu berangkat dan pulang kerja.
+""")
+
+st.subheader('Kesimpulan Pertanyaan 3')
+st.write("""
+Dari hasil RFM Analysis, terlihat bahwa **segmen waktu** dengan nilai RFM tinggi cenderung memiliki frekuensi tinggi dan total penyewaan yang besar, 
+sehingga menjadi segmen yang paling aktif dalam penyewaan sepeda.
 """)
